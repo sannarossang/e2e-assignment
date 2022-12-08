@@ -6,7 +6,7 @@ beforeEach(() => {
   cy.visit("/");
 });
 
-describe("should test movieApp successfully", () => {
+describe("should test movie application", () => {
   it("should have a textbox/input-field", () => {
     cy.get("input#searchText");
   });
@@ -32,7 +32,7 @@ describe("should test movieApp successfully", () => {
     cy.get("h3:first").contains("The Lion King");
   });
 
-  it("should get mockData", () => {
+  it("should get mockData and controlling by checking URL and h3", () => {
     cy.intercept("GET", "http://omdbapi.com/*", mockData).as("movielist");
     cy.get("input#searchText").type("The Lion King");
     cy.get("input#searchText").should("have.value", "The Lion King");
@@ -82,6 +82,7 @@ describe("should test movieApp successfully", () => {
 
     cy.wait("@movielist").its("request.url").should("contain", "Lion");
 
+    cy.get("div > div.movie").should("have.length", 4);
     cy.get("div.movie > h3").should("have.length", 4);
     cy.get("div.movie > img").should("have.length", 4);
   });
