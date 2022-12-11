@@ -121,7 +121,7 @@ describe("should test movie application", () => {
     );
   });
 
-  it("all div should have class movie", () => {
+  it("should control that all div should have class movie", () => {
     cy.intercept("GET", "http://omdbapi.com/*", mockData).as("movielist");
     cy.get("input").type("The Lion King");
     cy.get("input").should("have.value", "The Lion King");
